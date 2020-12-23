@@ -46,8 +46,7 @@ async def on_ready():
                 exit(0)
             print("Waiting 1 minute...")
             await asyncio.sleep(60)
-        print("Not within timeframe, bot will be inactive for {}..."
-              .format((START_DATE-date.today()).strftime("%d/%m/%Y")))
+        print("Not within timeframe, bot will be inactive for {} days...".format((START_DATE-date.today()).days))
         await asyncio.sleep(60)
 
 
