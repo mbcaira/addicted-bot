@@ -23,10 +23,10 @@ def game_played():
 @client.event
 async def on_ready():
     for guild in client.guilds:
-        print(f"{client.user} is connected to the following guild:\n{guild.name}(id: {guild.id})")
+        print(f"{client.user} is connected to the following server:\n{guild.name}(id: {guild.id})")
     general = client.get_channel(int(CHANNEL))
     while True:
-        print("Checking for game activity.")
+        print("Checking for game activity...")
         if game_played():
             await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
                                "INFUSIONAL, AND SUBARU $100 LUL")
