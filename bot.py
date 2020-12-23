@@ -1,9 +1,10 @@
-import os
-import discord
-import activity_check
 import asyncio
+import os
+
+import discord
 from dotenv import load_dotenv
-from datetime import date
+
+import activity_check
 
 load_dotenv()
 
@@ -19,6 +20,7 @@ game_activity = activity_check.get_game_activity()
 def game_played():
     return not activity_check.get_game_activity() == game_activity
 
+
 @client.event
 async def on_ready():
     for guild in client.guilds:
@@ -29,5 +31,6 @@ async def on_ready():
             await general.send(f"PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
                                f"INFUSIONAL, AND SUBARU $100 LUL")
         await asyncio.sleep(300)
+
 
 client.run(DISCORD_AUTH)
