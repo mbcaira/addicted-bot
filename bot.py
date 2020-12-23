@@ -9,7 +9,7 @@ import activity_check
 
 DISCORD_AUTH = os.environ.get('DISCORD_TOKEN')
 DISCORD_SERVER = os.environ.get('SERVER_NAME')
-CHANNEL = os.getenv('GENERAL')
+CHANNEL = os.environ.get('GENERAL')
 
 client = discord.Client()
 
