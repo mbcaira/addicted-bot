@@ -26,9 +26,13 @@ async def on_ready():
         print(f"{client.user} is connected to the following guild:\n{guild.name}(id: {guild.id})")
     general = client.get_channel(int(CHANNEL))
     while True:
+        print("Checking for game activity.")
         if game_played():
             await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
                                "INFUSIONAL, AND SUBARU $100 LUL")
+            print("Game has been played, shutting down.")
+            exit(0)
+        print("Waiting 5 minutes.")
         await asyncio.sleep(300)
 
 if __name__ == "__main__":

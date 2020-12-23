@@ -5,7 +5,8 @@ import requests as req
 
 
 user_info = {
-    "P3DRO": os.environ.get('P3DRO')
+    "P3DRO": os.environ.get('P3DRO'),
+    "snib2r": os.environ.get('snib2r')
 }
 
 
