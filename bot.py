@@ -12,7 +12,7 @@ DISCORD_AUTH = os.environ.get('DISCORD_TOKEN')
 DISCORD_SERVER = os.environ.get('SERVER_NAME')
 CHANNEL = os.environ.get('GENERAL')
 
-START_DATE = date(2021, 1, 15)  # January 16th, 2021
+START_DATE = date(2021, 1, 15)  # January 15th, 2021
 END_DATE = date(2021, 5, 1)  # May 1st, 2021
 
 client = discord.Client()
