@@ -2,12 +2,10 @@ import json
 import os
 
 import requests as req
-from dotenv import load_dotenv
 
-load_dotenv()
 
 user_info = {
-    "P3DRO": os.getenv('P3DRO')
+    "P3DRO": os.environ.get('P3DRO')
 }
 
 

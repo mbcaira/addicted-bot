@@ -4,14 +4,11 @@ import asyncio
 import os
 
 import discord
-from dotenv import load_dotenv
 
 import activity_check
 
-load_dotenv()
-
-DISCORD_AUTH = os.getenv('DISCORD_TOKEN')
-DISCORD_SERVER = os.getenv('SERVER_NAME')
+DISCORD_AUTH = os.environ.get('DISCORD_TOKEN')
+DISCORD_SERVER = os.environ.get('SERVER_NAME')
 CHANNEL = os.getenv('GENERAL')
 
 client = discord.Client()
