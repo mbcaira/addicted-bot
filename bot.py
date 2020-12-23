@@ -50,7 +50,7 @@ async def on_ready():
             await asyncio.sleep(60)
         print("Not within timeframe, bot will be inactive for {} days, will check again tomorrow..."
               .format((START_DATE - date.today()).days))
-        tomorrow = date.today() + timedelta(days=1)
+        tomorrow = datetime.today() + timedelta(days=1)
         sleep_seconds = (datetime.now() - tomorrow).total_seconds()
         await asyncio.sleep(sleep_seconds)
 
