@@ -31,5 +31,5 @@ async def on_ready():
                                "INFUSIONAL, AND SUBARU $100 LUL")
         await asyncio.sleep(300)
 
-
-client.run(DISCORD_AUTH)
+if __name__ == "__main__":
+    client.run(DISCORD_AUTH)
