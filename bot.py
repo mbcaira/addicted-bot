@@ -32,7 +32,7 @@ async def on_ready():
 
     valid_timeframe = START_DATE <= date.today() <= END_DATE
     if not valid_timeframe:
-        print(f"Not within timeframe, bot will be inactive until {START_DATE.strftime()}...")
+        print("Not within timeframe, bot will be inactive until {}...".format(START_DATE.strftime("%d/%m/%Y")))
 
     while valid_timeframe:
         print("Checking for game activity...")
