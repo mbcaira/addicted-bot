@@ -28,8 +28,8 @@ async def on_ready():
     general = client.get_channel(int(CHANNEL))
     while True:
         if game_played():
-            await general.send(f"PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
-                               f"INFUSIONAL, AND SUBARU $100 LUL")
+            await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
+                               "INFUSIONAL, AND SUBARU $100 LUL")
         await asyncio.sleep(300)
 
 
