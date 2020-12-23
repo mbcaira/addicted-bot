@@ -5,7 +5,7 @@ import requests as req
 
 
 USERS = os.environ.get('USERS').split(",")
-API_HEADER = (os.environ.get('API_HEADER'))
+API_HEADER = json.loads(os.environ.get('API_HEADER'))
 
 
 def get_account_id():
