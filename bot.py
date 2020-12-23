@@ -46,6 +46,7 @@ async def on_ready():
                 exit(0)
             print("Waiting 1 minute.")
             await asyncio.sleep(60)
+        print("Waiting a minute...")
         await asyncio.sleep(60)
 
 
