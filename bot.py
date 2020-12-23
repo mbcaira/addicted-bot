@@ -3,6 +3,8 @@
 import asyncio
 import os
 from datetime import date
+from datetime import datetime
+from datetime import timedelta
 
 import discord
 
@@ -46,8 +48,11 @@ async def on_ready():
                 exit(0)
             print("Waiting 1 minute...")
             await asyncio.sleep(60)
-        print("Not within timeframe, bot will be inactive for {} days...".format((START_DATE-date.today()).days))
-        await asyncio.sleep(60)
+        print("Not within timeframe, bot will be inactive for {} days, will check again tomorrow..."
+              .format((START_DATE - date.today()).days))
+        tomorrow = date.today() + timedelta(days=1)
+        sleep_seconds = (datetime.now() - tomorrow).total_seconds()
+        await asyncio.sleep(sleep_seconds)
 
 
 if __name__ == "__main__":
