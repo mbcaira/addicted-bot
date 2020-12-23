@@ -26,27 +26,28 @@ def game_played():
     return not activity_check.get_game_activity() == game_activity
 
 
+def valid_timeframe():
+    return START_DATE <= date.today() <= END_DATE
+
+
 @client.event
 async def on_ready():
     for guild in client.guilds:
         print(f"{client.user} is connected to the following server:\n{guild.name}(id: {guild.id})")
     general = client.get_channel(int(CHANNEL))
 
-    valid_timeframe = START_DATE <= date.today() <= END_DATE
-    if not valid_timeframe:
-        print("Not within timeframe, bot will be inactive until {}...".format(START_DATE.strftime("%d/%m/%Y")))
-
     while True:
-        valid_timeframe = START_DATE <= date.today() <= END_DATE
-        while valid_timeframe:
+        while valid_timeframe():
             print("Checking for game activity...")
             if game_played():
                 await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
                                    "INFUSIONAL, AND SUBARU $100 LUL")
                 print("Game has been played, shutting down.")
                 exit(0)
-            print("Waiting 1 minute.")
+            print("Waiting 1 minute...")
             await asyncio.sleep(60)
+        print("Not within timeframe, bot will be inactive for {}..."
+              .format((START_DATE-date.today()).strftime("%d/%m/%Y")))
         await asyncio.sleep(60)
 
 
