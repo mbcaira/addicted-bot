@@ -32,8 +32,8 @@ async def on_ready():
                                "INFUSIONAL, AND SUBARU $100 LUL")
             print("Game has been played, shutting down.")
             exit(0)
-        print("Waiting 5 minutes.")
-        await asyncio.sleep(300)
+        print("Waiting 1 minute.")
+        await asyncio.sleep(60)
 
 if __name__ == "__main__":
     client.run(DISCORD_AUTH)

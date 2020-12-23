@@ -4,15 +4,31 @@ import os
 import requests as req
 
 
-user_info = {
-    "P3DRO": os.environ.get('P3DRO'),
-    "snib2r": os.environ.get('snib2r')
-}
+USERS = os.environ.get('USERS').split(",")
+API_HEADER = (os.environ.get('API_HEADER'))
+
+
+def get_account_id():
+    account_ids = []
+    print("Grabbing account IDs...")
+    uri = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
+    for user in USERS:
+        account_id = json.loads(req.get(uri+user, headers=API_HEADER).content)["accountId"]
+        account_ids.append(account_id)
+    return account_ids
 
 
 def get_game_activity():
+    track_log = "Tracking users: "
+    for user in USERS:
+        track_log += user
+    print(track_log)
     games_played = []
-    for user in user_info:
-        res = req.get(user_info.get(user))
-        games_played.append(json.loads(res.content)["totalGames"])
+    uri = "https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/"
+    account_ids = get_account_id()
+    print("Grabbing games played...")
+    for account in account_ids:
+        total_games = json.loads(req.get(uri+account, headers=API_HEADER).content)["totalGames"]
+        games_played.append(total_games)
+    print("Games played on each account (in order): ", games_played)
     return games_played
