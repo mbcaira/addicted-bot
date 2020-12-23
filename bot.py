@@ -17,8 +17,9 @@ END_DATE = date(2021, 5, 1)  # May 1st, 2021
 
 client = discord.Client()
 
+print("Grabbing initial data...")
 game_activity = activity_check.get_game_activity()
-
+print("\n\n\nSTARTING GAME TRACKER")
 
 def game_played():
     return not activity_check.get_game_activity() == game_activity
@@ -34,14 +35,16 @@ async def on_ready():
     if not valid_timeframe:
         print("Not within timeframe, bot will be inactive until {}...".format(START_DATE.strftime("%d/%m/%Y")))
 
-    while valid_timeframe:
-        print("Checking for game activity...")
-        if game_played():
-            await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
-                               "INFUSIONAL, AND SUBARU $100 LUL")
-            print("Game has been played, shutting down.")
-            exit(0)
-        print("Waiting 1 minute.")
+    while not valid_timeframe:
+        while valid_timeframe:
+            print("Checking for game activity...")
+            if game_played():
+                await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
+                                   "INFUSIONAL, AND SUBARU $100 LUL")
+                print("Game has been played, shutting down.")
+                exit(0)
+            print("Waiting 1 minute.")
+            await asyncio.sleep(60)
         await asyncio.sleep(60)
 
 
