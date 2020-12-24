@@ -30,24 +30,25 @@ async def on_ready():
         print(f"{client.user} is connected to the following server:\n{guild.name}(id: {guild.id})")
     general = client.get_channel(int(CHANNEL))
 
-    if True:
-        print("Grabbing initial data...")
-        game_activity = activity_check.get_game_activity()
-        print("\nSTARTING GAME TRACKER")
-        while True:
-            print("Checking for game activity...")
-            if game_activity != activity_check.get_game_activity():
-                await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
-                                   "INFUSIONAL, AND SUBARU $100 LUL")
-                print("Game has been played, shutting down.")
-                exit(0)
-            print("Waiting 1 minute...")
-            await asyncio.sleep(60)
-    else:
-        sleep_time = START_DATE - datetime.today()
-        print("Not within timeframe, bot will be inactive for {} days, will begin monitoring then..."
-              .format(sleep_time.days))
-        await asyncio.sleep(sleep_time.total_seconds())
+    while True:
+        if valid_timeframe():
+            print("Grabbing initial data...")
+            game_activity = activity_check.get_game_activity()
+            print("\nSTARTING GAME TRACKER")
+            while valid_timeframe():
+                print("Checking for game activity...")
+                if game_activity != activity_check.get_game_activity():
+                    await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
+                                       "INFUSIONAL, AND SUBARU $100 LUL")
+                    print("Game has been played, shutting down.")
+                    exit(0)
+                print("Waiting 1 minute...")
+                await asyncio.sleep(60)
+        else:
+            sleep_time = START_DATE - datetime.today()
+            print("Not within timeframe, bot will be inactive for {} days, will begin monitoring then..."
+                  .format(sleep_time.days))
+            await asyncio.sleep(sleep_time.total_seconds())
 
 
 if __name__ == "__main__":
