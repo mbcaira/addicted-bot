@@ -30,7 +30,7 @@ async def on_ready():
         print(f"{client.user} is connected to the following server:\n{guild.name}(id: {guild.id})")
     general = client.get_channel(int(CHANNEL))
 
-    if valid_timeframe():
+    if True:
         print("Grabbing initial data...")
         game_activity = activity_check.get_game_activity()
         print("\nSTARTING GAME TRACKER")
