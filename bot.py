@@ -34,7 +34,7 @@ async def on_ready():
         print("Grabbing initial data...")
         game_activity = activity_check.get_game_activity()
         print("\nSTARTING GAME TRACKER")
-        while True():
+        while True:
             print("Checking for game activity...")
             if game_activity != activity_check.get_game_activity():
                 await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
