@@ -29,7 +29,7 @@ async def on_ready():
     general = client.get_channel(int(CHANNEL))
 
     while True:
-        if valid_timeframe():
+        if True:
             print("Grabbing initial data...")
             game_activity = get_game_activity()
             print("\nSTARTING GAME TRACKER")
