@@ -19,14 +19,6 @@ END_DATE = datetime(2021, 5, 1)  # May 1st, 2021
 
 client = discord.Client()
 
-print("Grabbing initial data...")
-game_activity = activity_check.get_game_activity()
-print("\n\n\nSTARTING GAME TRACKER")
-
-
-def game_played():
-    return not activity_check.get_game_activity() == game_activity
-
 
 def valid_timeframe():
     return START_DATE <= datetime.today() <= END_DATE
@@ -39,9 +31,12 @@ async def on_ready():
     general = client.get_channel(int(CHANNEL))
 
     if valid_timeframe():
-        while valid_timeframe():
+        print("Grabbing initial data...")
+        game_activity = activity_check.get_game_activity()
+        print("\nSTARTING GAME TRACKER")
+        while True():
             print("Checking for game activity...")
-            if game_played():
+            if game_activity != activity_check.get_game_activity():
                 await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
                                    "INFUSIONAL, AND SUBARU $100 LUL")
                 print("Game has been played, shutting down.")
