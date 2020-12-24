@@ -2,13 +2,11 @@
 
 import asyncio
 import os
-from datetime import date
 from datetime import datetime
-from datetime import timedelta
 
 import discord
 
-import activity_check
+from activity_check import get_game_activity
 
 DISCORD_AUTH = os.environ.get('DISCORD_TOKEN')
 DISCORD_SERVER = os.environ.get('SERVER_NAME')
@@ -21,7 +19,7 @@ client = discord.Client()
 
 
 def valid_timeframe():
-    return START_DATE <= datetime.today() <= END_DATE
+    return START_DATE <= datetime.now() <= END_DATE
 
 
 @client.event
@@ -33,11 +31,11 @@ async def on_ready():
     while True:
         if valid_timeframe():
             print("Grabbing initial data...")
-            game_activity = activity_check.get_game_activity()
+            game_activity = get_game_activity()
             print("\nSTARTING GAME TRACKER")
             while valid_timeframe():
                 print("Checking for game activity...")
-                if game_activity != activity_check.get_game_activity():
+                if game_activity != get_game_activity():
                     await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
                                        "INFUSIONAL, AND SUBARU $100 LUL")
                     print("Game has been played, shutting down.")
