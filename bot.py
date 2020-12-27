@@ -54,7 +54,7 @@ async def on_ready():
                 insert_status = db.insert_one(game_activity)
                 print(f"Inserted initial games played into database ({insert_status.inserted_id}): {get_game_activity()}")
             else:
-                game_activity = db.find_one()
+                game_activity = db.find_one()['gamesPlayed']
             print("\nSTARTING GAME TRACKER")
             while True:
                 print("Checking for game activity...")
@@ -63,7 +63,7 @@ async def on_ready():
                                        "INFUSIONAL, AND SUBARU $100 LUL")
                     print("Game has been played, shutting down.")
                     mongo_client.close()
-                    exit(0)
+                    return
                 print("Waiting 1 minute...")
                 await asyncio.sleep(60)
         else:
