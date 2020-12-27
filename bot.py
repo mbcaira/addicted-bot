@@ -21,6 +21,7 @@ BEGIN = datetime(START_DATE[2], START_DATE[1], START_DATE[0])
 END = datetime(END_DATE[2], END_DATE[1], END_DATE[0])
 
 mongo_client = MongoClient(MONGODB_URI)
+db = mongo_client.games
 discord_client = discord.Client()
 
 
@@ -33,18 +34,22 @@ async def on_ready():
     for guild in discord_client.guilds:
         print(f"{discord_client.user} is connected to the following server:\n{guild.name}(id: {guild.id})")
     general = discord_client.get_channel(int(CHANNEL))
-    if mongo_client is not None:
+    if db is not None:
         print("Connected to MongoDB successfully")
     else:
         print("Could not connect to MongoDB, exiting program")
         exit(-1)
     print(f"Checking for activity between the dates: {START_DATE[0]}/{START_DATE[1]}/{START_DATE[2]} - {END_DATE[0]}/"
           f"{END_DATE[1]}/{END_DATE[2]}")
-
     while True:
-        if valid_timeframe():
+        if True:
             print("Grabbing initial data...")
             game_activity = get_game_activity()
+            game_activity = {
+                "gamesPlayed": game_activity
+            }
+            insert_status = db.insert_one(game_activity)
+            print(f"Inserted initial games played into database ({insert_status.inserted_id}): {get_game_activity()}")
             print("\nSTARTING GAME TRACKER")
             while valid_timeframe():
                 print("Checking for game activity...")
@@ -52,6 +57,7 @@ async def on_ready():
                     await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
                                        "INFUSIONAL, AND SUBARU $100 LUL")
                     print("Game has been played, shutting down.")
+                    mongo_client.close()
                     exit(0)
                 print("Waiting 1 minute...")
                 await asyncio.sleep(60)
