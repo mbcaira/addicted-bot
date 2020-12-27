@@ -3,6 +3,7 @@
 import asyncio
 import os
 from datetime import datetime
+from pymongo import MongoClient
 
 import discord
 
@@ -11,22 +12,34 @@ from activity_check import get_game_activity
 DISCORD_AUTH = os.environ.get('DISCORD_TOKEN')
 DISCORD_SERVER = os.environ.get('SERVER_NAME')
 CHANNEL = os.environ.get('GENERAL')
+MONGODB_URI = os.environ.get('MONGODB_URI')
 
-START_DATE = datetime(2021, 1, 15)  # January 15th, 2021
-END_DATE = datetime(2021, 5, 1)  # May 1st, 2021
+START_DATE = [int(info) for info in os.environ.get('START_DATE').split("/")]
+END_DATE = [int(info) for info in os.environ.get('END_DATE').split("/")]
 
-client = discord.Client()
+BEGIN = datetime(START_DATE[2], START_DATE[1], START_DATE[0])
+END = datetime(END_DATE[2], END_DATE[1], END_DATE[0])
+
+mongo_client = MongoClient(MONGODB_URI)
+discord_client = discord.Client()
 
 
 def valid_timeframe():
-    return START_DATE <= datetime.now() <= END_DATE
+    return BEGIN <= datetime.now() <= END
 
 
-@client.event
+@discord_client.event
 async def on_ready():
-    for guild in client.guilds:
-        print(f"{client.user} is connected to the following server:\n{guild.name}(id: {guild.id})")
-    general = client.get_channel(int(CHANNEL))
+    for guild in discord_client.guilds:
+        print(f"{discord_client.user} is connected to the following server:\n{guild.name}(id: {guild.id})")
+    general = discord_client.get_channel(int(CHANNEL))
+    if mongo_client is not None:
+        print("Connected to MongoDB successfully")
+    else:
+        print("Could not connect to MongoDB, exiting program")
+        exit(-1)
+    print(f"Checking for activity between the dates: {START_DATE[0]}/{START_DATE[1]}/{START_DATE[2]} - {END_DATE[0]}/"
+          f"{END_DATE[1]}/{END_DATE[2]}")
 
     while True:
         if valid_timeframe():
@@ -43,11 +56,11 @@ async def on_ready():
                 print("Waiting 1 minute...")
                 await asyncio.sleep(60)
         else:
-            sleep_time = START_DATE - datetime.today()
+            sleep_time = BEGIN - datetime.today()
             print("Not within timeframe, bot will be inactive for {} days, will begin monitoring then..."
                   .format(sleep_time.days))
             await asyncio.sleep(sleep_time.total_seconds())
 
 
 if __name__ == "__main__":
-    client.run(DISCORD_AUTH)
+    discord_client.run(DISCORD_AUTH)
