@@ -49,7 +49,7 @@ async def on_ready():
             game_activity = {
                 "gamesPlayed": game_activity
             }
-            insert_status = db.games.insert_one(game_activity)
+            insert_status = db.insert_one(game_activity)
             print(f"Inserted initial games played into database ({insert_status.inserted_id}): {get_game_activity()}")
             print("\nSTARTING GAME TRACKER")
             while valid_timeframe():
