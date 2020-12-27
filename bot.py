@@ -21,7 +21,7 @@ BEGIN = datetime(START_DATE[2], START_DATE[1], START_DATE[0])
 END = datetime(END_DATE[2], END_DATE[1], END_DATE[0])
 
 mongo_client = MongoClient(MONGODB_URI)
-db = mongo_client.GamesPlayed
+db = mongo_client['GamesPlayed']['games']
 discord_client = discord.Client()
 print(mongo_client.list_database_names())
 
