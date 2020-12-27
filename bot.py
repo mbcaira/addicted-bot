@@ -43,6 +43,7 @@ async def on_ready():
     print(f"Checking for activity between the dates: {START_DATE[0]}/{START_DATE[1]}/{START_DATE[2]} - {END_DATE[0]}/"
           f"{END_DATE[1]}/{END_DATE[2]}")
     while True:
+        print(db.find_one())
         if True:
             if db.find_one() is None:
                 print("Grabbing initial data...")
