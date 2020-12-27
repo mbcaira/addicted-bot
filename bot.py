@@ -23,7 +23,6 @@ END = datetime(END_DATE[2], END_DATE[1], END_DATE[0])
 mongo_client = MongoClient(MONGODB_URI)
 db = mongo_client['GamesPlayed']['games']
 discord_client = discord.Client()
-print(mongo_client.list_database_names())
 
 
 def valid_timeframe():
@@ -43,8 +42,7 @@ async def on_ready():
     print(f"Checking for activity between the dates: {START_DATE[0]}/{START_DATE[1]}/{START_DATE[2]} - {END_DATE[0]}/"
           f"{END_DATE[1]}/{END_DATE[2]}")
     while True:
-        print(db.find_one())
-        if True:
+        if valid_timeframe():
             if db.find_one() is None:
                 print("Grabbing initial data...")
                 logged_games = get_game_activity()
@@ -57,7 +55,7 @@ async def on_ready():
             else:
                 game_activity = db.find_one()['gamesPlayed']
             print("\nSTARTING GAME TRACKER")
-            while True:
+            while valid_timeframe():
                 print("Checking for game activity...")
                 if game_activity != get_game_activity():
                     await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
@@ -67,6 +65,9 @@ async def on_ready():
                     return
                 print("Waiting 1 minute...")
                 await asyncio.sleep(60)
+        elif datetime.today() > END:
+            await general.send("The bet has ended and Pedgie wedgie is NOT addicted to league :poggers:")
+            return
         else:
             sleep_time = BEGIN - datetime.today()
             print("Not within timeframe, bot will be inactive for {} days, will begin monitoring then..."
