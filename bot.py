@@ -44,15 +44,18 @@ async def on_ready():
           f"{END_DATE[1]}/{END_DATE[2]}")
     while True:
         if True:
-            print("Grabbing initial data...")
-            game_activity = get_game_activity()
-            game_activity = {
-                "gamesPlayed": game_activity
-            }
-            insert_status = db.insert_one(game_activity)
-            print(f"Inserted initial games played into database ({insert_status.inserted_id}): {get_game_activity()}")
+            if db.find_one() is None:
+                print("Grabbing initial data...")
+                game_activity = get_game_activity()
+                game_activity = {
+                    "gamesPlayed": game_activity
+                }
+                insert_status = db.insert_one(game_activity)
+                print(f"Inserted initial games played into database ({insert_status.inserted_id}): {get_game_activity()}")
+            else:
+                game_activity = db.find_one()
             print("\nSTARTING GAME TRACKER")
-            while valid_timeframe():
+            while True:
                 print("Checking for game activity...")
                 if game_activity != get_game_activity():
                     await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
