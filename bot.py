@@ -23,6 +23,7 @@ END = datetime(END_DATE[2], END_DATE[1], END_DATE[0])
 mongo_client = MongoClient(MONGODB_URI)
 db = mongo_client.games
 discord_client = discord.Client()
+print(mongo_client.list_database_names())
 
 
 def valid_timeframe():
