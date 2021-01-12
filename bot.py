@@ -58,8 +58,7 @@ async def on_ready():
             while valid_timeframe():
                 print("Checking for game activity...")
                 if game_activity != get_game_activity():
-                    await general.send("PEDRO IS ADDICTED AND HAS PLAYED LEAGUE AS OF NOW AND OWES SERUNDER, "
-                                       "INFUSIONAL, AND SUBARU $100 LUL")
+                    await general.send(os.getenv('MESSAGE'))
                     print("Game has been played, shutting down.")
                     mongo_client.close()
                     return
