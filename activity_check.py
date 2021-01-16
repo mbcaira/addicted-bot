@@ -14,9 +14,13 @@ def get_account_id():
     print("Grabbing account IDs...")
     uri = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
     for user in USERS:
-        account_id = json.loads(req.get(uri + user, headers=API_HEADER).content)["accountId"]
-        account_ids.append(account_id)
-    return account_ids
+        try:
+            account_id = json.loads(req.get(uri + user, headers=API_HEADER).content)["accountId"]
+            account_ids.append(account_id)
+            return account_ids
+        except KeyError:
+            print("Encountered a key error, retrying the summoner API.")
+            return get_account_id()
 
 
 def get_game_activity():
@@ -29,7 +33,11 @@ def get_game_activity():
     account_ids = get_account_id()
     print("Grabbing games played...")
     for account in account_ids:
-        total_games = json.loads(req.get(uri + account, headers=API_HEADER).content)["totalGames"]
-        games_played.append(total_games)
-    print("Games played on each account (in order): ", games_played)
-    return games_played
+        try:
+            total_games = json.loads(req.get(uri + account, headers=API_HEADER).content)["totalGames"]
+            games_played.append(total_games)
+            print("Games played on each account (in order): ", games_played)
+            return games_played
+        except KeyError:
+            print("Encountered key error, retrying the match API.")
+            get_game_activity()
