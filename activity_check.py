@@ -38,6 +38,6 @@ def get_game_activity():
             games_played.append(total_games)
         except KeyError:
             print("Encountered key error, retrying the match API.")
-            get_game_activity()
+            return get_game_activity()
     print("Games played on each account (in order): ", games_played)
     return games_played
