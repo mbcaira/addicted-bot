@@ -36,8 +36,8 @@ def get_game_activity():
         try:
             total_games = json.loads(req.get(uri + account, headers=API_HEADER).content)["totalGames"]
             games_played.append(total_games)
-            print("Games played on each account (in order): ", games_played)
         except KeyError:
             print("Encountered key error, retrying the match API.")
             get_game_activity()
+    print("Games played on each account (in order): ", games_played)
     return games_played
