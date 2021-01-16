@@ -13,6 +13,7 @@ DISCORD_AUTH = os.environ.get('DISCORD_TOKEN')
 DISCORD_SERVER = os.environ.get('SERVER_NAME')
 CHANNEL = os.environ.get('GENERAL')
 MONGODB_URI = os.environ.get('MONGODB_URI')
+WAIT_TIME = int(os.environ.get('WAIT_TIME'))
 
 START_DATE = [int(info) for info in os.environ.get('START_DATE').split("/")]
 END_DATE = [int(info) for info in os.environ.get('END_DATE').split("/")]
@@ -62,8 +63,8 @@ async def on_ready():
                     print("Game has been played, shutting down.")
                     mongo_client.close()
                     return
-                print("Waiting 1 minute...")
-                await asyncio.sleep(60)
+                print(f"Waiting {WAIT_TIME} minutes...")
+                await asyncio.sleep(WAIT_TIME*60)
         elif datetime.today() > END:
             await general.send("The bet has ended and Pedgie wedgie is NOT addicted to league :poggers:")
             return
