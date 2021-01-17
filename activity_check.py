@@ -14,9 +14,9 @@ def get_account_id():
     print("Grabbing account IDs...")
     uri = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
     for user in USERS:
+        account_id = json.loads(req.get(uri + user, headers=API_HEADER).content)
         try:
-            account_id = json.loads(req.get(uri + user, headers=API_HEADER).content)["accountId"]
-            account_ids.append(account_id)
+            account_ids.append(account_id["accountId"])
         except KeyError:
             print(f"Encountered an error (SUMMONER API): {account_id['message']}")
             return get_account_id()
@@ -33,9 +33,9 @@ def get_game_activity():
     account_ids = get_account_id()
     print("Grabbing games played...")
     for account in account_ids:
+        total_games = json.loads(req.get(uri + account, headers=API_HEADER).content)
         try:
-            total_games = json.loads(req.get(uri + account, headers=API_HEADER).content)["totalGames"]
-            games_played.append(total_games)
+            games_played.append(total_games["totalGames"])
         except KeyError:
             print(f"Encountered an error (MATCH API): {total_games['message']}")
             return get_account_id()
