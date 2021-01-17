@@ -18,6 +18,7 @@ def get_account_id():
         try:
             account_ids.append(account_id["accountId"])
         except KeyError:
+            print(account_id)
             print(f"Encountered an error (SUMMONER API): {account_id['message']}")
             return get_account_id()
     return account_ids
