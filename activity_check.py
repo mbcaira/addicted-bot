@@ -18,8 +18,7 @@ def get_account_id():
         try:
             account_ids.append(account_id["accountId"])
         except KeyError:
-            print(account_id)
-           # print(f'Encountered an error (SUMMONER API): {account_id["message"]}')
+            print(f'Encountered an error (SUMMONER API): {account_id["status"]["message"]}')
             return get_account_id()
     return account_ids
 
@@ -38,7 +37,7 @@ def get_game_activity():
         try:
             games_played.append(total_games["totalGames"])
         except KeyError:
-            print(f"Encountered an error (MATCH API): {total_games['message']}")
+            print(f"Encountered an error (MATCH API): {total_games['status']['message']}")
             return get_account_id()
     print("Games played on each account (in order): ", games_played)
     return games_played
