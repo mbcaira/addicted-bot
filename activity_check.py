@@ -18,7 +18,7 @@ def get_account_id():
             account_id = json.loads(req.get(uri + user, headers=API_HEADER).content)["accountId"]
             account_ids.append(account_id)
         except KeyError:
-            print("Encountered a key error, retrying the summoner API.")
+            print(f"Encountered an error (SUMMONER API): {account_id['message']}")
             return get_account_id()
     return account_ids
 
@@ -37,7 +37,7 @@ def get_game_activity():
             total_games = json.loads(req.get(uri + account, headers=API_HEADER).content)["totalGames"]
             games_played.append(total_games)
         except KeyError:
-            print("Encountered key error, retrying the match API.")
-            return get_game_activity()
+            print(f"Encountered an error (MATCH API): {total_games['message']}")
+            return get_account_id()
     print("Games played on each account (in order): ", games_played)
     return games_played
