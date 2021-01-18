@@ -2,6 +2,7 @@
 
 import json
 import os
+import time
 
 import requests as req
 
@@ -20,6 +21,7 @@ def get_account_id():
         except KeyError:
             print(f'Encountered an error (SUMMONER API): {account_id["status"]["message"]}')
             return get_account_id()
+        time.sleep(5)
     return account_ids
 
 
@@ -39,5 +41,6 @@ def get_game_activity():
         except KeyError:
             print(f"Encountered an error (MATCH API): {total_games['status']['message']}")
             return get_account_id()
+        time.sleep(5)
     print("Games played on each account (in order): ", games_played)
     return games_played
