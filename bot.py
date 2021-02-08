@@ -25,7 +25,7 @@ discord_client = discord.Client()
 def valid_timeframe():
     return BEGIN <= datetime.now() <= END
 
-@discord.client_event
+@discord_client.event
 async def on_read():
     try:
         with MongoClient(MONGODB_URI) as mongo_client:
