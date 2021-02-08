@@ -13,14 +13,14 @@ def get_account_id():
     account_ids = []
     print("Grabbing account IDs...")
     uri = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
-    for user in USERS:
-        account_id = json.loads(req.get(uri + user, headers=API_HEADER).content)
-        try:
+    try:
+        for user in USERS:
+            account_id = json.loads(req.get(uri + user, headers=API_HEADER).content)
             account_ids.append(account_id["accountId"])                
-            return account_ids
-        except KeyError:
-            print(f'Encountered an error (SUMMONER API): {account_id["status"]["message"]}')
-            raise KeyError
+        return account_ids
+    except KeyError:
+        print(f'Encountered an error (SUMMONER API): {account_id["status"]["message"]}')
+        raise ConnectionError
 
 
 
