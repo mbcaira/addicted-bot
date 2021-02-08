@@ -62,6 +62,7 @@ async def on_ready():
                                 await general.send(os.getenv('MESSAGE'))
                                 print("A game has been played, shutting down...")
                                 exit(0)
+                            print(f"Waiting {WAIT_TIME*60} minute(s)")
                         except ConnectionError:
                             print("Connection error while checking game activity, retrying...")
                 elif datetime.today() > END:
