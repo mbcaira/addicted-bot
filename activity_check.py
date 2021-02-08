@@ -37,8 +37,7 @@ def get_game_activity():
         for account in account_ids:
             total_games = json.loads(req.get(uri + account, headers=API_HEADER).content)
             games_played.append(total_games["totalGames"])
+        print("Games played on each account (in order): ", games_played)
+        return games_played
     except KeyError:
-        print(f"Encountered an error (MATCH API): {total_games['status']['message']}")
         raise ConnectionError
-    print("Games played on each account (in order): ", games_played)
-    return games_played
