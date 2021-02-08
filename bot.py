@@ -26,9 +26,8 @@ def valid_timeframe():
     return BEGIN <= datetime.now() <= END
 
 @discord_client.event
-async def on_read():
+async def on_ready():
     try:
-        print("Starting")
         with MongoClient(MONGODB_URI) as mongo_client:
             db = mongo_client['GamesPlayed']['games']
             print("Connected to MongoDB successfully.")
