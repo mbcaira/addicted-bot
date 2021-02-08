@@ -65,7 +65,7 @@ async def on_read():
                         except ConnectionError:
                             print("Connection error while checking game activity, retrying...")
                 elif datetime.today() > END:
-                    await general.send(os.getenv('SUCCESS'))
+                    await general.send("The bet has ended and Pedgie wedgie is NOT addicted to league :poggers:")
                     return
                 else:
                     sleep_time = BEGIN - datetime.today()
