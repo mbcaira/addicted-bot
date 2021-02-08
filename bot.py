@@ -65,7 +65,8 @@ async def on_ready():
                             print(f"Waiting {WAIT_TIME} minute(s)")
                             await asyncio.sleep(WAIT_TIME*60)
                         except ConnectionError:
-                            print("Connection error while checking game activity, retrying...")
+                            print("Connection error while checking game activity, retrying in 5 minutes...")
+                            await asyncio.sleep(300)
                 elif datetime.today() > END:
                     await general.send(os.getenv('SUCCESS'))
                     return
